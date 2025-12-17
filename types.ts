@@ -8,10 +8,14 @@ export enum UniformLine {
 
 export interface LineDetails {
   id: UniformLine;
-  shirtPrice: number;
-  shortsPrice: number;
   description: string;
   color: string;
+}
+
+export interface SelectedItem {
+  category: string;
+  line: UniformLine;
+  quantity: number;
 }
 
 export interface AttachmentCategory {
@@ -23,8 +27,7 @@ export interface AttachmentCategory {
 export interface AppState {
   currentStep: number;
   flowType: 'arte' | 'modificacao' | null;
-  selectedLine: UniformLine;
-  totalQuantity: number;
+  selectedItems: SelectedItem[];
   clientData: {
     name: string;
     phone: string;

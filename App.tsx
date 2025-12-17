@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { AppState, UniformLine } from './types';
 import StepEntry from './components/StepEntry';
 import Step1 from './components/Step1';
+import Step2 from './components/Step2';
 import Step4 from './components/Step4';
 import StepArteDetails from './components/StepArteDetails';
 
@@ -10,8 +11,7 @@ const App: React.FC = () => {
   const [state, setState] = useState<AppState>({
     currentStep: 0,
     flowType: null,
-    selectedLine: UniformLine.PRATA,
-    totalQuantity: 1,
+    selectedItems: [],
     clientData: { name: '', phone: '' },
     orderReference: '',
     modificationNotes: '',
@@ -31,20 +31,17 @@ const App: React.FC = () => {
       case 0:
         return <StepEntry state={state} setState={setState} onNext={goToNextStep} />;
       case 1:
-        if (state.flowType === 'arte') {
-          return <Step1 state={state} setState={setState} onNext={goToNextStep} onPrev={goToPrevStep} />;
-        }
-        return <StepArteDetails state={state} setState={setState} onNext={goToNextStep} onPrev={goToPrevStep} />;
+        // Seleção de Categorias
+        return <Step1 state={state} setState={setState} onNext={goToNextStep} onPrev={goToPrevStep} />;
       case 2:
-        if (state.flowType === 'arte') {
-          return <StepArteDetails state={state} setState={setState} onNext={goToNextStep} onPrev={goToPrevStep} />;
-        }
-        return <Step4 state={state} setState={setState} onPrev={goToPrevStep} />;
+        // Configuração de Linhas por Categoria
+        return <Step2 state={state} setState={setState} onNext={goToNextStep} onPrev={goToPrevStep} />;
       case 3:
-        if (state.flowType === 'arte') {
-          return <Step4 state={state} setState={setState} onPrev={goToPrevStep} />;
-        }
-        return null;
+        // Detalhes da Arte e Uploads
+        return <StepArteDetails state={state} setState={setState} onNext={goToNextStep} onPrev={goToPrevStep} />;
+      case 4:
+        // Finalização (PDF/Whats)
+        return <Step4 state={state} setState={setState} onPrev={goToPrevStep} />;
       default:
         return <StepEntry state={state} setState={setState} onNext={goToNextStep} />;
     }
