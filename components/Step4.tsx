@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { AppState } from '../types';
 import { Icons } from '../constants';
-import { jsPDF } from "https://esm.sh/jspdf";
+import { jsPDF } from "jspdf";
 
 interface Step4Props {
   state: AppState;
