@@ -20,6 +20,7 @@ const Step4: React.FC<Step4Props> = ({ state, setState, onPrev }) => {
     }));
   };
 
+  // Validação: Nome > 2 caracteres e Telefone > 7 caracteres
   const isFormValid = state.clientData.name.trim().length > 2 && state.clientData.phone.trim().length > 7;
   const isArte = state.flowType === 'arte';
 
@@ -167,7 +168,7 @@ const Step4: React.FC<Step4Props> = ({ state, setState, onPrev }) => {
               placeholder="Ex: João da Silva / Time FC"
               value={state.clientData.name}
               onChange={(e) => handleClientChange('name', e.target.value)}
-              className="bg-white border border-slate-200 rounded-2xl px-5 py-4 text-sm text-slate-900 placeholder:text-slate-300 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all shadow-sm font-semibold"
+              className="bg-white border border-slate-200 rounded-2xl px-5 py-4 text-sm text-slate-900 placeholder:text-slate-300 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all shadow-sm font-bold block w-full"
             />
           </div>
           <div className="flex flex-col space-y-2">
@@ -177,7 +178,7 @@ const Step4: React.FC<Step4Props> = ({ state, setState, onPrev }) => {
               placeholder="Ex: 16 99167-9072"
               value={state.clientData.phone}
               onChange={(e) => handleClientChange('phone', e.target.value)}
-              className="bg-white border border-slate-200 rounded-2xl px-5 py-4 text-sm text-slate-900 placeholder:text-slate-300 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all shadow-sm font-semibold"
+              className="bg-white border border-slate-200 rounded-2xl px-5 py-4 text-sm text-slate-900 placeholder:text-slate-300 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all shadow-sm font-bold block w-full"
             />
           </div>
         </div>
@@ -212,7 +213,7 @@ const Step4: React.FC<Step4Props> = ({ state, setState, onPrev }) => {
           <h3 className="text-3xl font-black text-white uppercase">Relatório Consolidado</h3>
           <p className={`text-xs mt-2 max-w-sm mx-auto transition-colors duration-300 ${!isFormValid ? 'text-red-400 font-bold' : 'text-slate-400'}`}>
             {!isFormValid 
-              ? 'Preencha seu Nome e WhatsApp acima para liberar o download.' 
+              ? 'PREENCHA NOME E WHATSAPP PARA LIBERAR' 
               : 'Gere o PDF com todos os detalhes e clique no botão abaixo para nos enviar.'}
           </p>
         </div>
@@ -225,7 +226,7 @@ const Step4: React.FC<Step4Props> = ({ state, setState, onPrev }) => {
               w-full py-5 rounded-2xl font-black text-xl flex items-center justify-center space-x-3 transition-all duration-300
               ${isFormValid && !isGenerating 
                 ? 'bg-indigo-600 text-white hover:bg-indigo-700 hover:scale-[1.02] shadow-xl shadow-indigo-600/30' 
-                : 'bg-slate-800 text-slate-600 opacity-50 cursor-not-allowed pointer-events-none'}
+                : 'bg-slate-800 text-slate-600 opacity-40 cursor-not-allowed pointer-events-none border border-slate-700'}
             `}
           >
             {isGenerating ? (
@@ -243,17 +244,17 @@ const Step4: React.FC<Step4Props> = ({ state, setState, onPrev }) => {
               w-full py-5 rounded-2xl font-black text-xl flex items-center justify-center space-x-3 transition-all duration-300
               ${isFormValid 
                 ? 'bg-emerald-600 text-white hover:bg-emerald-700 hover:scale-[1.02] shadow-xl shadow-emerald-600/30' 
-                : 'bg-slate-800 text-slate-600 opacity-50 cursor-not-allowed pointer-events-none'}
+                : 'bg-slate-800 text-slate-600 opacity-40 cursor-not-allowed pointer-events-none border border-slate-700'}
             `}
           >
             <Icons.WhatsApp />
-            <span>ENTRAR EM CONTATO</span>
+            <span>ENVIAR PELO WHATSAPP</span>
           </button>
         </div>
         
         <p className="text-[10px] text-indigo-300 mt-6 font-bold uppercase tracking-widest flex items-center justify-center space-x-2">
-          <Icons.Info />
-          <span>Os botões serão liberados após preencher os dados de contato</span>
+          {!isFormValid ? <Icons.Info /> : <Icons.Save />}
+          <span>{!isFormValid ? 'Campos de contato são obrigatórios' : 'Os botões de ação estão liberados!'}</span>
         </p>
       </div>
 
