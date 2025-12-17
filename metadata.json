@@ -1,0 +1,7 @@
+{
+  "name": "Solicitação de artes",
+  "description": "A high-performance, multi-step React application to simulate sports uniform budgets, allowing users to select product lines, customize quantities, upload designs, and finalize orders with a detailed breakdown.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
